@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body{
+    background: url("../images/email-pattern.png");
+}
+
+.brand-logo{
+    font-family: 'Yusei Magic', sans-serif;
+}
+
+nav{
+    display: block;
+}
+
+.tags{
+    font-size: 0.7rem;
+    display: flex;
+}
+
+.tags > li{
+    padding: 5px;
+    border-radius: 35%;
+    margin-right: 20px;
+}
+
+.card-title{
+    width: 100%;
+    background: rgba(129, 212, 250, 0.5);
+}
+
+/* .card{
+    height: 90vh;
+} */
