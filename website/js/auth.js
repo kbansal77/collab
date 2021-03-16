@@ -1,21 +1,32 @@
-const google_signups =  document.querySelectorAll('#google-signup')
+const google_signups = document.querySelectorAll("#google-signup");
+const google_signouts = document.querySelectorAll("#google-signout");
 
-google_signups.forEach((signup)=>{
-  signup.addEventListener("click",()=>{
+var uid = "";
+
+google_signups.forEach((signup) => {
+  signup.addEventListener("click", () => {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth()
+    firebase
+      .auth()
       .signInWithPopup(provider)
       .then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
         var credential = result.credential;
-    
+
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        window.location.href = "./discover.html"
+        console.log(user);
+        console.log(credential)
+        console.log(token)
+        if (result.additionalUserInfo.isNewUser){
+          console.log("1")
+        }
+        window.location.href = "./discover.html";
         // ...
-      }).catch((error) => {
+      })
+      .catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -25,26 +36,52 @@ google_signups.forEach((signup)=>{
         var credential = error.credential;
         // ...
       });
-})
-})
+  });
+});
 
-
-const google_signouts = document.querySelectorAll('#google-signout')
-
-google_signouts.forEach((signout)=>{
-  signout.addEventListener("click",()=>{
-    console.log("c")
-    firebase.auth().signOut()
-    .then(()=>{
-        window.location.href = "./index.html"
+googleSignup.forEach(button => {
+  button.addEventListener('click', e => {
+    e.preventDefault();
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(result => {
+      console.log(result)
+      if (result.additionalUserInfo.isNewUser) {
+        return firebase.firestore().collection('Users').doc(result.user.uid).set({
+          username: result.user.displayName,
+          photoUrl: result.user.photoURL,
+          downVotedPosts: [],
+          upVotedPosts: []
+        });
+      }
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        M.Modal.getInstance(modal).close();
+        sidenavDissmiss();
+        window.location.reload();
+      })
+    }).catch(err => {
+      console.log(err)
+      console.log("Try again")
     })
-    .catch((error)=>{
-        console.log(error)
-    })
-})
+  })
 })
 
 
+
+google_signouts.forEach((signout) => {
+  signout.addEventListener("click", () => {
+    console.log("c");
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        window.location.href = "./index.html";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+});
 
 // document.querySelector('#google-signout').addEventListener("click",()=>{
 //     firebase.auth().signOut

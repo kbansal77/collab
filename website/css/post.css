@@ -19,6 +19,15 @@ nav {
   display: block;
 }
 
+.card-title {
+  width: 100%;
+  background: rgba(129, 212, 250, 0.5);
+}
+
+.outline {
+  border: 1px #03a9f4 solid;
+}
+
 .tags {
   font-size: 0.7rem;
   display: flex;
@@ -30,41 +39,6 @@ nav {
   margin-right: 20px;
 }
 
-.card-title {
-  width: 100%;
-  background: rgba(129, 212, 250, 0.5);
-}
-
-/* .card{
-    height: 90vh;
-} */
-
-#filter {
-  height: 100vh;
-  padding: 0 2rem 2rem 2rem;
-  position: sticky;
-  top: 0;
-}
-
-.outline {
-  border: 1px #03a9f4 solid;
-}
-
-.limit {
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 .space {
   margin: 1rem;
-}
-
-.switch {
-  margin-top: 1rem;
-}
-
-h5 {
-  margin-left: 3rem;
 }
